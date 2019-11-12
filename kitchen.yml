@@ -1,6 +1,8 @@
 ---
 driver:
   name: dokken
+  privileged: true
+  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
 
 transport:
   name: dokken
@@ -34,3 +36,4 @@ suites:
         - test/integration/petstore
     includes:
         - ubuntu-16.04
+        - centos-7

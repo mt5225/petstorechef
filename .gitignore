@@ -19,4 +19,4 @@ kitchen.local.yml
 # Chef
 Berksfile.lock
 .zero-knife.rb
-Policyfile.lock.json
+*.lock.json
