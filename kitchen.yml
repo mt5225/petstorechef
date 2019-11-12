@@ -1,0 +1,36 @@
+---
+driver:
+  name: dokken
+
+transport:
+  name: dokken
+ 
+provisioner:
+  name: dokken
+  always_update_cookbooks: false
+
+verifier:
+  name: inspec
+
+platforms:
+- name: centos-7
+  driver:
+    image: centos:7
+    privileged: true
+    pid_one_command: /usr/lib/systemd/systemd
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro # required by systemd
+- name: ubuntu-16.04
+  driver:
+    image: dokken/ubuntu-16.04
+    pid_one_command: /bin/systemd
+
+suites:
+  - name: petstore
+    provisioner:
+      policyfile: policyfiles/petstore-webserver.rb
+    verifier:
+      inspec_tests:
+        - test/integration/petstore
+    includes:
+        - ubuntu-16.04

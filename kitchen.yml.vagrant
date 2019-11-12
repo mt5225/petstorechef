@@ -1,0 +1,30 @@
+# Configure the driver (cloud/hypervisor)
+driver:
+  name: vagrant 
+  provider: virtualbox
+
+# Configure the provisioner (config management)
+provisioner:
+  name: chef_zero 
+  chef_license: 'accept'
+
+# Configure the verifier (testing framework)
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-16.04
+  - name: centos-7
+
+# Enumerate suites
+suites:
+  # The name of each suite maps to a configuration / set of tests
+  # Depending on the verifier, default locations may be inferred based on
+  # directory naming
+  - name: php70
+    includes:
+       - ubuntu-16.04 
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    attributes:
