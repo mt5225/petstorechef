@@ -47,6 +47,25 @@ pipeline {
                 }                
             }
         }
+        stage('upload') {
+            when {
+              branch 'master'
+            }
+            steps {
+                rtUpload (
+                    serverId: "artifactory-01",
+                    spec:
+                        """{
+                        "files": [
+                            {
+                            "pattern": "exportdir/*.tgz",
+                            "target": "chef-cookbook/petstorechef/${BUILD_NUMBER}/"
+                            }
+                        ]
+                        }"""
+                )
+            }
+        }
     }
     post {
         always {
