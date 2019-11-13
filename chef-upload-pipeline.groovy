@@ -24,11 +24,13 @@ pipeline {
     stages {
         stage('install') {
             steps {
-                sh label: 'Delete lock files if exist', returnStatus: true, script: "rm -rf policyfiles/*.json"
-                script {
+                sh label: 'Delete lock files if exist', returnStatus: true, script: "mkdir cookbook && ls|grep -v cookbook|xargs mv -t cookbook"
+                dir('cookbook') {
+                  script {
                     for (f in findFiles(glob: "policyfiles/*.rb")) {
                         sh "chef install ${f}"
                     }
+                  }
                 }
                 
             }
@@ -36,11 +38,12 @@ pipeline {
         stage('export') {
             steps {
                 sh 'mkdir -p exportdir'
-                
-                script {
+                dir('cookbook') {
+                  script {
                     for (f in findFiles(glob: "policyfiles/*.rb")) {
-                        sh "chef export ${f} exportdir --archive"
+                        sh "chef export ${f} ../exportdir --archive"
                     }
+                  }
                 }                
             }
         }
