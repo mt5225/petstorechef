@@ -27,6 +27,7 @@ default["apt_repositories"] = {
   default["packages"]["debian"] = {
     "memcached" => nil,
     "nginx" => nil,
+    "wget" => nil,
     "php7.0-fpm" => nil,
     "php7.0-dev" => nil,
     "php7.0-xml" => nil,
