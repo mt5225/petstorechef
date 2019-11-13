@@ -2,6 +2,7 @@ pipeline {
     agent {
         docker {
             image 'chef/chefdk:latest'
+            args '-u root:root'
         }
     }
 
@@ -23,7 +24,7 @@ pipeline {
     stages {
         stage('install') {
             steps {
-                sh label: 'Delete lock files if exist', returnStatus: true, script: "rm policyfiles/*.json"
+                sh label: 'Delete lock files if exist', returnStatus: true, script: "rm -rf policyfiles/*.json"
                 script {
                     for (f in findFiles(glob: "policyfiles/*.rb")) {
                         sh "chef install ${f}"

@@ -1,3 +1,4 @@
+name 'petstore-biserver'
 
 # Where to find external cookbooks:
 default_source :supermarket
