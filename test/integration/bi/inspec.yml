@@ -1,0 +1,9 @@
+name: petstore-bi
+title: petstore-bi integration tests
+maintainer: Qing Jiang
+copyright_email: mt5225@gmail.com
+license: All rights reserved
+summary: Check that petstore bi is set up correctly
+version: 0.0.1
+supports:
+  - os-family: linux
